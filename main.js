@@ -106,7 +106,7 @@ function initThreeJS() {
         crystal.rotation.y += 0.005;
         crystal.rotation.z += 0.002;
         particlesMesh.rotation.y -= 0.0005;
-        
+
         // Float effect
         crystal.position.y = Math.sin(Date.now() * 0.001) * 2;
 
@@ -161,9 +161,9 @@ function playHeroEntrance() {
         delay: 0.8
     });
 
-    gsap.from('.nav', {
-        y: -100,
-        opacity: 0,
+    gsap.to('.nav', {
+        y: 0,
+        opacity: 1,
         duration: 1.2,
         ease: 'power4.out',
         delay: 1
@@ -172,6 +172,22 @@ function playHeroEntrance() {
 
 function initAnimations() {
     gsap.registerPlugin(ScrollTrigger);
+
+    // Mobile Menu Toggle
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    navToggle.addEventListener('click', () => {
+        navToggle.classList.toggle('active');
+        navLinks.classList.toggle('active');
+    });
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            navToggle.classList.remove('active');
+            navLinks.classList.remove('active');
+        });
+    });
 
     // Nav Scroll Effect
     window.addEventListener('scroll', () => {
@@ -205,8 +221,8 @@ function initAnimations() {
         visuals[index].classList.add('active');
     }
 
-    // Reveal Text on Scroll
-    gsap.utils.toArray('.section-title h2, .sport-card').forEach(el => {
+    // Reveal Text & Cards on Scroll
+    gsap.utils.toArray('.section-title h2, .section-desc, .sport-card, .moment-card, .gallery-grid').forEach(el => {
         gsap.from(el, {
             scrollTrigger: {
                 trigger: el,
