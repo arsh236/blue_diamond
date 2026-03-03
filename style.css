@@ -1,0 +1,553 @@
+:root {
+    --primary: #0A1F44;
+    --primary-light: #16366B;
+    --accent: #00D4FF;
+    --accent-glow: rgba(0, 212, 255, 0.4);
+    --white: #FFFFFF;
+    --text-muted: #A0AEC0;
+    --bg-dark: #050C1A;
+    --glass: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'Outfit', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: initial;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--white);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+body.loading {
+    overflow: hidden;
+}
+
+/* --- Loader --- */
+.loader {
+    position: fixed;
+    inset: 0;
+    background: var(--bg-dark);
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader-content {
+    text-align: center;
+    position: relative;
+}
+
+.loader-logo {
+    width: 120px;
+    height: auto;
+    filter: drop-shadow(0 0 20px var(--accent-glow));
+    animation: pulse 2s infinite ease-in-out;
+}
+
+.loader-progress {
+    width: 200px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.1);
+    margin-top: 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0%;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+}
+
+.loader-text {
+    margin-top: 15px;
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    font-weight: 600;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.05); opacity: 1; }
+}
+
+/* --- Navigation --- */
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.nav.scrolled {
+    padding: 15px 5%;
+    background: rgba(5, 12, 26, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-small {
+    width: 40px;
+    height: auto;
+}
+
+.logo-text {
+    font-weight: 800;
+    font-size: 1.2rem;
+    letter-spacing: 0.1em;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 40px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--white);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    position: relative;
+    transition: color 0.3s;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: var(--accent);
+    transition: width 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--accent);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* --- Canvas Background --- */
+#canvas-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* --- Hero Section --- */
+.hero-section {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 10%;
+    position: relative;
+}
+
+.hero-subtitle {
+    font-size: 1.1rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.4em;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.hero-title {
+    font-size: clamp(3rem, 8vw, 6rem);
+    line-height: 0.9;
+    font-weight: 800;
+    margin-bottom: 30px;
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.hero-title .line {
+    display: block;
+}
+
+.hero-description {
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    font-weight: 400;
+}
+
+.hero-scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.scroll-text {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--text-muted);
+}
+
+.mouse {
+    width: 26px;
+    height: 42px;
+    border: 2px solid var(--text-muted);
+    border-radius: 15px;
+    position: relative;
+}
+
+.wheel {
+    width: 4px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 2px;
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: scroll-anim 2s infinite ease-in-out;
+}
+
+@keyframes scroll-anim {
+    0% { transform: translate(-50%, 0); opacity: 0; }
+    30% { opacity: 1; }
+    100% { transform: translate(-50%, 15px); opacity: 0; }
+}
+
+/* --- Scrollytelling Section --- */
+.scrolly-section {
+    position: relative;
+    padding: 100px 0;
+}
+
+.scrolly-container {
+    display: flex;
+    padding: 0 10%;
+    position: relative;
+}
+
+.scrolly-content {
+    flex: 1;
+    padding-right: 10%;
+}
+
+.step {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    opacity: 0.3;
+    transition: opacity 0.5s;
+}
+
+.step.active {
+    opacity: 1;
+}
+
+.step-card {
+    max-width: 450px;
+}
+
+.year {
+    font-size: 3rem;
+    font-weight: 800;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--accent);
+    display: block;
+    margin-bottom: 15px;
+}
+
+.step-card h3 {
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+    letter-spacing: 0.05em;
+}
+
+.step-card p {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+}
+
+.scrolly-visual {
+    flex: 1;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.visual-wrapper {
+    width: 100%;
+    height: 60%;
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+}
+
+.visual-item {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    transform: scale(1.1);
+}
+
+.visual-item.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.visual-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.parallax-logo {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at center, var(--primary-light), var(--bg-dark));
+}
+
+.parallax-logo img {
+    width: 60%;
+    height: auto;
+    filter: drop-shadow(0 0 30px var(--accent-glow));
+}
+
+/* --- Sports Section --- */
+.sports-section {
+    padding: 150px 10%;
+    background: linear-gradient(to bottom, var(--bg-dark), var(--primary));
+}
+
+.section-title {
+    margin-bottom: 80px;
+    text-align: center;
+}
+
+.tag {
+    color: var(--accent);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.4em;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.section-title h2 {
+    font-size: 3.5rem;
+    font-weight: 800;
+}
+
+.sports-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.sport-card {
+    height: 500px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 30px;
+    position: relative;
+    overflow: hidden;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    transition: transform 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.sport-card:hover {
+    transform: translateY(-15px);
+    border-color: var(--accent);
+}
+
+.sport-card h3 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: var(--accent);
+}
+
+/* --- Join Section --- */
+.join-section {
+    padding: 150px 10%;
+    display: flex;
+    justify-content: center;
+}
+
+.glass {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 40px;
+    padding: 80px;
+    max-width: 900px;
+    width: 100%;
+    display: flex;
+    gap: 60px;
+    align-items: center;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4);
+}
+
+.join-text {
+    flex: 1;
+}
+
+.join-text h2 {
+    font-size: 3rem;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.join-form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+input, select {
+    width: 100%;
+    padding: 18px 25px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: var(--white);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.btn {
+    padding: 18px 35px;
+    border-radius: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    transition: 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-size: 0.9rem;
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: var(--primary);
+}
+
+.btn-glow {
+    background: var(--white);
+    color: var(--primary);
+    border: none;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.btn-glow:hover {
+    box-shadow: 0 0 35px var(--accent);
+    background: var(--accent);
+}
+
+/* --- Footer --- */
+.footer {
+    padding: 100px 10%;
+    border-top: 1px solid var(--glass-border);
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-logo {
+    width: 80px;
+}
+
+/* --- Custom Cursor --- */
+.cursor {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.cursor-follower {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.1s ease-out;
+}
+
+/* Mobile Responsive */
+@media (max-width: 992px) {
+    .nav-links { display: none; }
+    .scrolly-container { flex-direction: column-reverse; }
+    .scrolly-content { padding-right: 0; }
+    .scrolly-visual { height: 40vh; position: relative; margin-bottom: 40px; }
+    .sports-grid { grid-template-columns: 1fr; }
+    .glass { flex-direction: column; padding: 40px; text-align: center; }
+}
