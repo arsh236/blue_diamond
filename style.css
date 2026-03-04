@@ -776,6 +776,18 @@ select:focus {
     filter: brightness(0.8);
 }
 
+.moment-card img.pos-top {
+    object-position: top;
+}
+
+.moment-card img.pos-bottom {
+    object-position: bottom;
+}
+
+.moment-card img.pos-center {
+    object-position: center;
+}
+
 .moment-card:hover img {
     transform: scale(1.1);
     filter: brightness(1);
