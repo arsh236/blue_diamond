@@ -861,7 +861,7 @@ select:focus {
         right: 0;
     }
 
-    .hero-title h1 {
+    .hero-title {
         font-size: 12vw;
     }
 
@@ -881,7 +881,7 @@ select:focus {
         width: 100%;
     }
 
-    .hero-title h1 {
+    .hero-title {
         font-size: 15vw;
     }
 
@@ -944,11 +944,20 @@ select:focus {
         font-size: 2.2rem;
     }
 
+    .sports-section,
+    .rivalry-section,
+    .gallery-section {
+        padding: 80px 5%;
+        /* Reduced padding on all sections */
+    }
+
     .sports-grid,
     .identity-contrast,
     .rivalry-grid,
     .gallery-grid {
         grid-template-columns: 1fr;
+        gap: 25px;
+        /* Tighter gap for mobile */
     }
 
     .sport-card {
@@ -956,17 +965,59 @@ select:focus {
         padding: 30px;
     }
 
+    .identity-card {
+        padding: 40px 25px;
+        /* Reduced from 60px */
+    }
+
+    .identity-card h3 {
+        font-size: 2rem;
+        /* Reduced from 2.5rem */
+    }
+
+    .identity-features {
+        grid-template-columns: 1fr;
+        /* Single column for features */
+        gap: 12px;
+    }
+
     .moment-card {
-        height: 300px;
+        height: 320px;
+        /* Slight adjustment */
     }
 
     .section-desc {
         font-size: 1rem;
+        margin-top: 15px;
     }
 }
 
 @media (max-width: 480px) {
     .logo-text {
         font-size: 1rem;
+    }
+
+    .hero-title {
+        font-size: 18vw;
+    }
+
+    .section-title h2 {
+        font-size: 1.8rem;
+    }
+
+    .identity-card {
+        padding: 30px 20px;
+    }
+
+    .identity-card h3 {
+        font-size: 1.6rem;
+    }
+
+    .identity-features li {
+        font-size: 0.8rem;
+    }
+
+    .moment-card {
+        height: 280px;
     }
 }
