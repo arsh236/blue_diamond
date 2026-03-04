@@ -222,7 +222,7 @@ function initAnimations() {
     }
 
     // Reveal Text & Cards on Scroll
-    gsap.utils.toArray('.section-title h2, .section-desc, .sport-card, .moment-card, .gallery-grid').forEach(el => {
+    gsap.utils.toArray('.section-title h2, .section-desc, .sport-card, .moment-card, .gallery-grid, .identity-card').forEach(el => {
         gsap.from(el, {
             scrollTrigger: {
                 trigger: el,
@@ -255,16 +255,24 @@ function initCursor() {
     });
 
     // Hover scales
-    document.querySelectorAll('a, button, .sport-card').forEach(el => {
+    document.querySelectorAll('a, button, .sport-card, .moment-card, .identity-card').forEach(el => {
         el.addEventListener('mouseenter', () => {
             cursor.style.transform = 'scale(2)';
             follower.style.transform = 'scale(0.5)';
-            follower.style.backgroundColor = 'var(--accent)';
+
+            if (el.classList.contains('red') || el.closest('.rivalry-section')) {
+                follower.style.borderColor = 'var(--maddyz-red)';
+                cursor.style.backgroundColor = 'var(--maddyz-red)';
+            } else {
+                follower.style.borderColor = 'var(--accent)';
+                cursor.style.backgroundColor = 'var(--accent)';
+            }
         });
         el.addEventListener('mouseleave', () => {
             cursor.style.transform = 'scale(1)';
             follower.style.transform = 'scale(1)';
-            follower.style.backgroundColor = 'transparent';
+            follower.style.borderColor = 'var(--accent)';
+            cursor.style.backgroundColor = 'var(--accent)';
         });
     });
 }

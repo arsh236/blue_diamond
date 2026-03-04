@@ -10,8 +10,8 @@
     --glass-border: rgba(255, 255, 255, 0.1);
     --font-heading: 'Outfit', sans-serif;
     --font-body: 'Outfit', sans-serif;
-    --purple: #6B166B;
-    --magenta: #D400FF;
+    --maddyz-red: #EF233C;
+    --maddyz-glow: rgba(239, 35, 60, 0.4);
 }
 
 * {
@@ -623,7 +623,7 @@ select:focus {
 /* --- Rivalry Section --- */
 .rivalry-section {
     padding: 150px 10%;
-    background: linear-gradient(to bottom, var(--bg-dark), #1A051A);
+    background: linear-gradient(to bottom, var(--bg-dark), #1A0A0A);
     position: relative;
     overflow: hidden;
 }
@@ -635,7 +635,7 @@ select:focus {
     right: -20%;
     width: 60%;
     height: 100%;
-    background: radial-gradient(circle, rgba(212, 0, 255, 0.1), transparent 70%);
+    background: radial-gradient(circle, rgba(239, 35, 60, 0.1), transparent 70%);
 }
 
 .section-desc {
@@ -644,6 +644,111 @@ select:focus {
     color: var(--text-muted);
     font-size: 1.1rem;
     text-align: center;
+}
+
+.identity-contrast {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 80px;
+}
+
+.identity-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 30px;
+    padding: 60px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.identity-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.1;
+    z-index: 0;
+    transition: opacity 0.5s;
+}
+
+.identity-card.blue::before {
+    background: radial-gradient(circle at top right, var(--accent), transparent);
+}
+
+.identity-card.red::before {
+    background: radial-gradient(circle at top right, var(--maddyz-red), transparent);
+}
+
+.identity-card:hover::before {
+    opacity: 0.2;
+}
+
+.identity-card.blue:hover {
+    border-color: var(--accent);
+    box-shadow: 0 30px 60px rgba(0, 212, 255, 0.2);
+}
+
+.identity-card.red:hover {
+    border-color: var(--maddyz-red);
+    box-shadow: 0 30px 60px rgba(239, 35, 60, 0.2);
+}
+
+.identity-card h3 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.identity-card.blue h3 {
+    color: var(--accent);
+}
+
+.identity-card.red h3 {
+    color: var(--maddyz-red);
+}
+
+.identity-card p {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 1;
+}
+
+.identity-features {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    position: relative;
+    z-index: 1;
+}
+
+.identity-features li {
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.identity-features li::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
+.identity-card.blue .identity-features li::before {
+    background: var(--accent);
+}
+
+.identity-card.red .identity-features li::before {
+    background: var(--maddyz-red);
 }
 
 .rivalry-grid {
@@ -677,8 +782,8 @@ select:focus {
 }
 
 .moment-card:hover {
-    border-color: var(--magenta);
-    box-shadow: 0 0 30px rgba(212, 0, 255, 0.3);
+    border-color: var(--maddyz-red);
+    box-shadow: 0 0 30px var(--maddyz-glow);
 }
 
 .moment-info {
@@ -700,7 +805,7 @@ select:focus {
 
 .moment-info h4 {
     font-size: 1.2rem;
-    color: var(--magenta);
+    color: var(--maddyz-red);
     margin-bottom: 5px;
     letter-spacing: 0.05em;
 }
@@ -840,6 +945,7 @@ select:focus {
     }
 
     .sports-grid,
+    .identity-contrast,
     .rivalry-grid,
     .gallery-grid {
         grid-template-columns: 1fr;
